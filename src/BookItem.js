@@ -8,13 +8,14 @@ class BookItem extends Component {
 
   render() {
     const { book } = this.props;
+    
     return (
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+            <div className="book-cover" style={book.imageLinks && { width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
             <div className="book-shelf-changer">
-              <select>
+              <select defaultValue={book.shelf ? book.shelf : "none"}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -24,7 +25,8 @@ class BookItem extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors}</div>
+          {/* <div className="book-title">Shelf: {book.shelf}</div> */}
+          <div className="book-authors">{book.authors && book.authors.join(", ")}</div>
         </div>
       </li>
     )
