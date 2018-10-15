@@ -63,10 +63,10 @@ class SearchBook extends Component {
       from this.state.myBooks and the response from API
     */
     if (response.error === undefined) {
-      response.map((itemAPI) => (
-        filtered.map((itemState, index) => {
+      filtered.map(itemState => (
+        response.map((itemAPI, index) => {
           if (itemAPI.id === itemState.id) {
-            filtered.splice(index, 1)
+            response.splice(index, 1)
           }
           return filtered
         })
