@@ -10,6 +10,19 @@ class BooksApp extends React.Component {
     myBooks: []
   }
 
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      let myBooksReplica = this.state.myBooks;
+      myBooksReplica.map(filteredBook => (
+        filteredBook.id === book.id ? filteredBook.shelf = shelf : myBooksReplica
+      ))
+      console.log(myBooksReplica)
+      this.setState({
+        myBooks: myBooksReplica
+      })
+    })
+  }
+
   componentDidMount() {
 		BooksAPI.getAll().then(myBooks => this.setState({
 			myBooks
@@ -23,12 +36,14 @@ class BooksApp extends React.Component {
         <Route path='/search' render={() => (
           <SearchBook
             myBooks={myBooks} 
+            changeShelf = {this.changeShelf}
           />
         )}
 			  />
         <Route exact path='/' render={() => (
           <ListBooks
-            books={myBooks} 
+            books={myBooks}
+            changeShelf = {this.changeShelf}
           />
         )}
 			  />

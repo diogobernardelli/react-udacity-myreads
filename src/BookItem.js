@@ -6,6 +6,17 @@ class BookItem extends Component {
 		book: PropTypes.object.isRequired
   }
 
+  state = {
+    value: this.props.book.shelf ? this.props.book.shelf : "none"
+  }
+  
+  change = event => {
+    this.props.changeShelf(this.props.book, event.target.value)
+    this.setState({
+			value: event.target.value
+    })
+  }
+
   render() {
     const { book } = this.props;
     
@@ -15,7 +26,7 @@ class BookItem extends Component {
           <div className="book-top">
             <div className="book-cover" style={book.imageLinks && { width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
             <div className="book-shelf-changer">
-              <select defaultValue={book.shelf ? book.shelf : "none"}>
+              <select onChange={this.change} value={this.state.value}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -25,7 +36,6 @@ class BookItem extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          {/* <div className="book-title">Shelf: {book.shelf}</div> */}
           <div className="book-authors">{book.authors && book.authors.join(", ")}</div>
         </div>
       </li>

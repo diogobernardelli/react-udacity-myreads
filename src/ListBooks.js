@@ -14,7 +14,7 @@ class ListBooks extends Component {
   
   render() {
     const shelfs = ["Currently Reading", "Want To Read", "Read"];
-    const { books } = this.props;
+    const { books, changeShelf } = this.props;
 
     return (
       <div className="list-books">
@@ -29,7 +29,7 @@ class ListBooks extends Component {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {books.filter(book => book.shelf === this.normalizeShelf(shelf)).map(book => (
-                      <BookItem book={book} key={book.id} />
+                      <BookItem book={book} changeShelf={changeShelf} key={book.id} />
                     ))}
                   </ol>
                 </div>
